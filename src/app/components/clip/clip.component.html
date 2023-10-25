@@ -1,0 +1,32 @@
+
+<div class="bounce-div mt-6 w-5/6 rounded-2xl bg-secondary shadow transform  hover:shadow-2xl">
+  <a href="#">
+
+    <!-- Image -->
+    <img class="rounded-t-2xl w-full" src="{{clipImage}}">
+
+    <!-- Shape -->
+    <div class="relative w">
+        <div class="absolute bottom-full w-full pb-5 overflow-hidden">
+          <svg viewBox="0 0 100 50" preserveAspectRatio="none" class="absolute bottom-0 w-full h-full tranform"
+            style="transform-origin: top center; transform: scale(2);">
+            <path d="M0 25h25L75 0h25v50H0z" fill="#af1763"></path>
+          </svg>
+        </div>
+    </div>
+
+    <!-- Body -->
+    <div class="p-8">
+      <!-- Heading -->
+      <h2 class="text-3xl mb-2">
+        {{clipHeading}}
+      </h2>
+      <!-- Name & Date -->
+      <p class="mb-0">
+        {{clipName}} &#183;
+        <span class="text-gray-400">{{clipDate}}</span>
+      </p>
+    </div>
+  </a>
+</div>
+
