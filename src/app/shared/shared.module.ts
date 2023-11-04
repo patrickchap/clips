@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ModalComponent } from './modal/modal.component';
 import { TabContainerComponent } from './tab-container/tab-container.component';
 import { TabComponent } from './tab/tab.component';
+import { FormInputComponent } from './form-input/form-input.component';
 
 
 
@@ -10,7 +11,8 @@ import { TabComponent } from './tab/tab.component';
   declarations: [
     ModalComponent,
     TabContainerComponent,
-    TabComponent
+    TabComponent,
+    FormInputComponent
   ],
   imports: [
     CommonModule
