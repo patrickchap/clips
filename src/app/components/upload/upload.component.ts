@@ -12,21 +12,24 @@ export class UploadComponent {
   uploadForm = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
-    file: new FormControl('', Validators.required)
+    file: new FormControl(null, Validators.required)
   });
 
-  filesBrowsed(event: any): void {
+  filesBrowsed(event: Event): void {
     const inputElement = event.target as HTMLInputElement;
     if (inputElement.files) {
       this.files = Array.from(inputElement.files);
-      this.uploadForm.get('file')?.setValue(inputElement.files);
     }
   }
 
   filesDropped(event: File[]): void {
     console.log("event", event);
     this.files = event;
-    this.uploadForm.get('file')?.setValue(this.files);
+    if(this.files.length > 0){
+      console.log("clear");
+      this.uploadForm.get("file")?.clearValidators();
+      this.uploadForm.get("file")?.updateValueAndValidity();
+    }
   }
 
   upload(): void {
@@ -35,6 +38,7 @@ export class UploadComponent {
 
   onSubmit(): void {
     console.log("form", this.uploadForm.value);
+    console.log("file", this.files);
   }
 }
 

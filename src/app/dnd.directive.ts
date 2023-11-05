@@ -7,8 +7,6 @@ export class DndDirective {
   @HostBinding('class.fileover') fileOver!: boolean;
   @Output() files: EventEmitter<File[]> = new EventEmitter();
 
-  constructor() { }
-
   @HostListener('dragover', ['$event']) onDragOver(evt: DragEvent) {
     evt.preventDefault();
     evt.stopPropagation();
@@ -28,8 +26,8 @@ export class DndDirective {
     evt.stopPropagation();
     console.log("drop");
     this.fileOver = false;
-    let files: File[] = [];
-    let dataTransferFiles = evt.dataTransfer?.files ?? [];
+    const files: File[] = [];
+    const dataTransferFiles = evt.dataTransfer?.files ?? [];
     for (let i = 0; i < dataTransferFiles.length; i++) {
       const file = dataTransferFiles[i];
       files.push(file);

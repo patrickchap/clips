@@ -39,7 +39,7 @@ import { ReactiveFormsModule } from '@angular/forms';
       authorizationParams: {
         redirect_uri: environment.redirectUri,
         // Request this audience at user authentication time
-        audience: 'https://dev-2cjpbt5spkzvia6t.us.auth0.com/api/v2/',
+        audience: environment.audience,
 
         // Request this scope at user authentication time
         scope: 'read:current_user',
