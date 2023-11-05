@@ -1,27 +1,27 @@
   <!-- Header -->
   <header id="header" class="bg-primary">
-    <nav class="container mx-auto flex justify-start items-center py-8 px-4">
-      <!-- App Name -->
-      <a class="text-3xl text-indigo-400 font-bold uppercase mr-4" routerLink="/home">GamersVault</a>
+    <nav class="bg-primary dark:bg-gray-900 opacity-95 fixed w-full z-50 top-0 left-0 border-b border-gray-200 dark:border-gray-600">
+      <div class="mx-auto flex justify-start items-center py-8 px-4">
+        <a class="text-4xl text-indigo-400 font-bold uppercase mr-4" routerLink="/home">GamersVault</a>
 
-      <div class="flex flex-grow items-center">
-        <!-- Primary Navigation -->
-        <ul class="flex flex-row mt-1">
-          <!-- Navigation Links -->
-          <li>
-            <a class="px-2" routerLink="/my-clips">My Clips</a>
-          </li>
-          <li>
-            <a class="px-2" routerLink="/upload">Upload</a>
-          </li>
-          <li>
-            <a class="px-2" href="about.html">About</a>
-          </li>
-        </ul>
-        <!-- Language Switcher -->
+        <div class="flex flex-grow items-center hidden md:flex">
+          <!-- Primary Navigation -->
+          <ul class="flex flex-row mt-2">
+            <!-- Navigation Links -->
+            <li>
+              <a class="px-3" routerLink="/my-clips">My Clips</a>
+            </li>
+            <li>
+              <a class="px-3" routerLink="/upload">Upload</a>
+            </li>
+            <li>
+              <a class="px-3" href="about.html">About</a>
+            </li>
+          </ul>
+          <!-- Language Switcher -->
 
-        <ul class="flex flex-row ml-auto">
-          <li>
+          <ul class="flex flex-row ml-auto">
+            <li>
               <ng-container *ngIf="_authService.isAuthenticated$ | async; else loggedOut">
                 <button (click)="_authService.logout({ logoutParams: { returnTo: 'http://localhost:4200/' } })">
                   Log out
@@ -31,8 +31,37 @@
               <ng-template #loggedOut>
                 <button (click)="_authService.loginWithRedirect()">Log in</button>
               </ng-template>
-          </li>
-        </ul>
+            </li>
+          </ul>
+        </div>
+        <div class="md:hidden flex flex-row ml-auto">
+          <div class="mobile-menu-button" [ngClass]="{ 'open': isOpen }" (click)="toggleMenu()">
+            <div class="bar bg-gray-200"></div>
+            <div class="bar bg-gray-200"></div>
+            <div class="bar bg-gray-200"></div>
+          </div>
+        </div>
       </div>
+      <!-- App Name -->
+    <!-- mobile nav-->
+    <aside *ngIf="isOpen" class="md:hidden nextra-sidebar-container nx-flex nx-flex-col md:nx-top-16 md:nx-shrink-0 motion-reduce:nx-transform-none nx-transform-gpu nx-transition-all nx-ease-in-out print:nx-hidden md:nx-w-64 md:nx-sticky md:nx-self-start max-md:[transform:translate3d(0,0,0)]">
+    <ul>
+      <li class="p-6">mobile</li>
+      <li class="p-6">mobile</li>
+      <li class="p-6">mobile</li>
+      <li class="p-6">mobile</li>
+      <li class="p-6">mobile</li>
+      <li class="p-6">mobile</li>
+    </ul>
+    </aside>
+  <!-- <div class="mobile-menue bg-secondary rounded m-2 w-full h-5/6  absolute flex flex-row justify-center z-50 transition" [ngClass]="{ 'hidden': !isOpen }">
+          <ul>
+            <li class="p-6">mobile</li>
+            <li class="p-6">mobile</li>
+            <li class="p-6">mobile</li>
+            <li class="p-6">mobile</li>
+            <li class="p-6">mobile</li>
+          </ul>
+      </div> -->
     </nav>
   </header>

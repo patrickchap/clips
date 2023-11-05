@@ -23,10 +23,8 @@ export class UploadComponent {
   }
 
   filesDropped(event: File[]): void {
-    console.log("event", event);
     this.files = event;
     if(this.files.length > 0){
-      console.log("clear");
       this.uploadForm.get("file")?.clearValidators();
       this.uploadForm.get("file")?.updateValueAndValidity();
     }
