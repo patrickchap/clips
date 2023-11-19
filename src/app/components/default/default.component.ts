@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { map } from 'rxjs';
+import IVideo from 'src/app/interfaces/video';
+import { VideoServiceService } from 'src/app/services/video-service.service';
 
 interface clipInfo {
   clipImage: string,
@@ -14,20 +17,31 @@ interface clipInfo {
 })
 export class DefaultComponent implements OnInit {
 
-  title = 'clips';
+  limit = 10;
+  offset = 0;
+  clips: clipInfo[] = []
 
-  clips: clipInfo[] = [
-    {clipImage: "assets/img/1.jpg", clipHeading: "Game Highlighting Clip", clipName: "Luis Ramirez", clipDate: "March 31, 2020"},
-    {clipImage: "assets/img/2.jpg", clipHeading: "Game Highlighting Clip", clipName: "Luis Ramirez", clipDate: "March 31, 2020"},
-    {clipImage: "assets/img/3.jpg", clipHeading: "Game Highlighting Clip", clipName: "Luis Ramirez", clipDate: "March 31, 2020"},
-    {clipImage: "assets/img/2.jpg", clipHeading: "Game Highlighting Clip", clipName: "Luis Ramirez", clipDate: "March 31, 2020"},
-    {clipImage: "assets/img/3.jpg", clipHeading: "Game Highlighting Clip", clipName: "Luis Ramirez", clipDate: "March 31, 2020"},
-    {clipImage: "assets/img/1.jpg", clipHeading: "Game Highlighting Clip", clipName: "Luis Ramirez", clipDate: "March 31, 2020"},
-  ]
+  constructor(private _videoService: VideoServiceService) {}
 
-  constructor() { }
+  ngOnInit() {
+    this._videoService.getVideoList(this.limit, this.offset)
+      .pipe(
+        map((videos: IVideo[]) => videos.map(video => this.mapToClipInfo(video)))
+      )
+      .subscribe((videos) => {
+        console.log(videos);
+        this.clips.push(...videos);
+    })
+  }
 
-  ngOnInit(): void {
+
+  private mapToClipInfo(video: IVideo): clipInfo {
+    return {
+      clipImage: video.thumbnail_url,
+      clipHeading: video.title,
+      clipName: video.user_id,
+      clipDate: video.created_at
+    };
   }
 
 }

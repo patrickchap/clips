@@ -4,6 +4,7 @@ import { ModalComponent } from './modal/modal.component';
 import { TabContainerComponent } from './tab-container/tab-container.component';
 import { TabComponent } from './tab/tab.component';
 import { FormInputComponent } from './form-input/form-input.component';
+import { ReactiveFormsModule } from '@angular/forms';
 
 
 
@@ -15,12 +16,14 @@ import { FormInputComponent } from './form-input/form-input.component';
     FormInputComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ReactiveFormsModule
   ],
   exports: [
     ModalComponent,
     TabContainerComponent,
-    TabComponent
+    TabComponent,
+    FormInputComponent
   ]
 })
 export class SharedModule { }

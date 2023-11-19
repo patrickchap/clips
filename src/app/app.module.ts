@@ -2,19 +2,19 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { UserModule } from './user/user.module'
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { AuthHttpInterceptor } from '@auth0/auth0-angular';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { NavComponent } from './components/nav/nav.component';
 import { ClipComponent } from './components/clip/clip.component';
 import { SharedModule } from './shared/shared.module';
-import { AuthModule } from '@auth0/auth0-angular';
+import { AuthHttpInterceptor, AuthModule } from '@auth0/auth0-angular';
 import { environment } from '../environments/environment';
 import { UploadComponent } from './components/upload/upload.component';
 import { MyClipsComponent } from './components/my-clips/my-clips.component';
 import { DndDirective } from './dnd.directive';
 import { DefaultComponent } from './components/default/default.component';
 import { ReactiveFormsModule } from '@angular/forms';
+import { CustomInputComponent } from './components/custom-input/custom-input.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +24,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     UploadComponent,
     MyClipsComponent,
     DndDirective,
-    DefaultComponent
+    DefaultComponent,
+    CustomInputComponent
   ],
   imports: [
     BrowserModule,
@@ -39,41 +40,46 @@ import { ReactiveFormsModule } from '@angular/forms';
       authorizationParams: {
         redirect_uri: environment.redirectUri,
         // Request this audience at user authentication time
-        audience: environment.audience,
+        audience: 'https://dev-2cjpbt5spkzvia6t.us.auth0.com/api/v2/',
 
-        // Request this scope at user authentication time
-        scope: 'read:current_user',
+        scope: 'read:current_user'
       },
+        // Specify configuration for the interceptor
       httpInterceptor: {
         allowedList: [
-          {
-            uri: environment.uri,
-            tokenOptions: {
-              authorizationParams: {
-                audience: environment.audience,
-                scope: 'read:current_user'
-              }
-            }
-          },
-          {
-            uri: environment.userUri,
+        {
+            // Match any request that starts 'http://0.0.0.0:8080/api/v1/*' (note the asterisk)
+            uri: 'http://0.0.0.0:8080/api/v1/*',
             tokenOptions: {
               authorizationParams: {
                 // The attached token should target this audience
-                audience: environment.userAudience,
+                audience: environment.audience,
 
                 // The attached token should have these scopes
                 scope: 'read:current_user'
               }
             }
+        },
+        {
+        // Match any request that starts
+          uri: `${environment.audience}*`,
+          tokenOptions: {
+            authorizationParams: {
+              // The attached token should target this audience
+              audience: environment.audience,
+
+              // The attached token should have these scopes
+              scope: 'read:current_user'
+            }
           }
+        }
         ]
       }
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
-  ],
+  { provide: HTTP_INTERCEPTORS, useClass: AuthHttpInterceptor, multi: true },
+],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

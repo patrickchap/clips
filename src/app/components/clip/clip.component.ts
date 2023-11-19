@@ -7,12 +7,11 @@ import { Component, OnInit, Input } from '@angular/core';
 })
 export class ClipComponent implements OnInit {
 
-  @Input() clipHeading: string = '';
-  @Input() clipName: string = '';
-  @Input() clipImage: string = '';
-  @Input() clipDate: string = '';
+  @Input() clipHeading = '';
+  @Input() clipName = '';
+  @Input() clipImage = '';
+  @Input() clipDate = '';
 
-  constructor() { }
 
   ngOnInit(): void {
   }

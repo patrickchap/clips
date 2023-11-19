@@ -1,9 +1,6 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { ModalService } from 'src/app/services/modal.service';
 import { AuthService } from '@auth0/auth0-angular';
-import { HttpClient } from '@angular/common/http';
-import { concatMap, tap, map } from 'rxjs/operators';
-
 
 @Component({
   selector: 'app-nav',
@@ -12,7 +9,7 @@ import { concatMap, tap, map } from 'rxjs/operators';
 })
 export class NavComponent implements OnInit {
   metadata = {};
-  constructor(private _modalService: ModalService, public _authService: AuthService, private http: HttpClient) { }
+  constructor(private _modalService: ModalService, public _authService: AuthService) { }
 
   ngOnInit(): void {
   }
@@ -24,6 +21,7 @@ export class NavComponent implements OnInit {
   }
 
   openUserAuthModal(event: MouseEvent) {
+    console.log("open Nav")
     event.preventDefault();
 
     this._modalService.toggle('auth');

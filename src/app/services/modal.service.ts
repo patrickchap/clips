@@ -8,11 +8,9 @@ export class ModalService {
 
   private modals: IModal[] = [];
 
-  constructor() { }
-
   isVisable(id: string): boolean {
     console.log("isVisable:", id);
-    let findModal = this.modals.find(m => m.id === id);
+    const findModal = this.modals.find(m => m.id === id);
     if(findModal){
       return findModal.visable;
     }
@@ -20,7 +18,7 @@ export class ModalService {
   }
 
   toggle(id: string): void {
-    let findModal = this.modals.find(m => m.id === id);
+    const findModal = this.modals.find(m => m.id === id);
     if(findModal){
       findModal.visable = !findModal.visable;
     }

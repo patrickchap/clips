@@ -8,6 +8,10 @@ body {
   overflow-x: hidden;
 }
 
+.error{
+  border: 2px solid red;
+}
+
 .slide-left {
   transform: translateX(0);
   position: absolute;

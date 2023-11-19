@@ -8,7 +8,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 })
 export class UploadComponent {
   files: File[] = [];
-
+  isFormSubmitted = false;
   uploadForm = new FormGroup({
     title: new FormControl('', Validators.required),
     description: new FormControl('', Validators.required),
@@ -35,8 +35,15 @@ export class UploadComponent {
   }
 
   onSubmit(): void {
+    this.isFormSubmitted = true;
+    if(!this.uploadForm.valid){
+      console.log("errrors")
+      return;
+    }
+
     console.log("form", this.uploadForm.value);
     console.log("file", this.files);
+
   }
 }
 
