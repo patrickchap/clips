@@ -11,8 +11,7 @@ export class NavComponent implements OnInit {
   metadata = {};
   constructor(private _modalService: ModalService, public _authService: AuthService) { }
 
-  ngOnInit(): void {
-  }
+  ngOnInit(): void {}
 
   isOpen = false;
 

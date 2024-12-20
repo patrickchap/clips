@@ -50,6 +50,7 @@ import { CustomInputComponent } from './components/custom-input/custom-input.com
         {
             // Match any request that starts 'http://0.0.0.0:8080/api/v1/*' (note the asterisk)
             uri: 'http://0.0.0.0:8080/api/v1/*',
+            //httpMethod: 'POST',
             tokenOptions: {
               authorizationParams: {
                 // The attached token should target this audience

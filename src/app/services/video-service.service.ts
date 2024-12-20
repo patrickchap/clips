@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import IVideo from '../interfaces/video';
-import { catchError, map, tap } from 'rxjs/operators';
+import { catchError, tap } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -18,7 +18,7 @@ export class VideoServiceService {
    * @param limit - max number of results to be returned
    * @param offset - The number of items to skip in the result set (limit - 1) * offset
    * */
-  getVideoList(limit: number, offset: number): Observable<IVideo[]>{
+  getVideoList(limit: number, offset: number): Observable<IVideo[]> {
     return this.http.get<IVideo[]>(`${this.backendUrl}?limit=${limit}&offset=${offset}`).pipe(
       tap(_ => console.log('fetched Videos')),
       catchError(this.handleError<IVideo[]>('getVideo', []))
@@ -37,16 +37,16 @@ export class VideoServiceService {
       catchError(this.handleError<IVideo>(`getVideo id=${id}`))
     );
   }
-    /**
-   * Handle Http operation that failed.
-   * Let the app continue.
-   *
-   * @param operation - name of the operation that failed
-   * @param result - optional value to return as the observable result
-   */
+  /**
+ * Handle Http operation that failed.
+ * Let the app continue.
+ *
+ * @param operation - name of the operation that failed
+ * @param result - optional value to return as the observable result
+ */
   private handleError<T>(operation = 'operation', result?: T) {
     // biome-ignore lint/suspicious/noExplicitAny: <explanation>
-    return  (error: any): Observable<T> => {
+    return (error: any): Observable<T> => {
 
       // TODO: send the error to remote logging infrastructure
       console.error(error); // log to console instead

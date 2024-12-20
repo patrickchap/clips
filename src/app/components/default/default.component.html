@@ -1,43 +1,45 @@
-  <section class="relative overflow-hidden mb-2">
-    <video [autoplay]="true" [muted]="true" [loop]="true" class="w-full h-full object-cover absolute">
-      <source src="assets/video/hero.webm" type="video/webm">
-    </video>
-    <div class="bg-gradient absolute w-full h-full z-20 opacity-60"></div>
+<section class="relative overflow-hidden mb-2">
+  <video [autoplay]="true" [muted]="true" [loop]="true" class="w-full h-full object-cover absolute">
+    <source src="assets/video/hero.webm" type="video/webm">
+  </video>
+  <div class="bg-gradient absolute w-full h-full z-20 opacity-60"></div>
 
-    <div class="w-full h-full absolute z-20">
-      <div class="cube"></div>
-      <div class="cube"></div>
-      <div class="cube"></div>
-      <div class="cube"></div>
-      <div class="cube"></div>
+  <div class="w-full h-full absolute z-20">
+    <div class="cube"></div>
+    <div class="cube"></div>
+    <div class="cube"></div>
+    <div class="cube"></div>
+    <div class="cube"></div>
+  </div>
+
+  <div class="container mx-auto relative z-30">
+    <div class="text-center px-20 py-60 w-full md:w-8/12 mx-auto">
+      <h3 class="text-7xl font-bold uppercase mb-2">AMPLIFY YOUR GAMING LEGACY!</h3>
+      <p>
+        GamersVault: Your Go-To Hub for Gaming Glory.
+        Explore, store, and share gaming clips with a community of gaming enthusiasts.
+        Showcasing your epic gaming moments has never been this easy. Start building your gaming legacy today!
+      </p>
     </div>
+  </div>
+</section>
 
-    <div class="container mx-auto relative z-30">
-      <div class="text-center px-20 py-60 w-full md:w-8/12 mx-auto">
-        <h3 class="text-7xl font-bold uppercase mb-2">AMPLIFY YOUR GAMING LEGACY!</h3>
-        <p>
-          GamersVault: Your Go-To Hub for Gaming Glory.
-          Explore, store, and share gaming clips with a community of gaming enthusiasts.
-          Showcasing your epic gaming moments has never been this easy. Start building your gaming legacy today!
-        </p>
-      </div>
-    </div>
-  </section>
+<!-- Main Content -->
+<section class="container mx-auto px-4 py-16">
+  <!-- Section Header -->
+  <div class="relative flex items-center justify-center mb-16">
+    <h1 class="text-4xl font-bold tracking-wider text-center uppercase relative z-10">
+      Latest
+    </h1>
+    <div class="absolute w-24 h-1 bg-secondary bottom-0 mt-2"></div>
+  </div>
 
-  <!-- Main Content -->
-  <section class="container mx-auto">
-    <h1 class="uppercase text-center text-4xl grid mt-20 mb-12 items-center gap-8 tracking-widest latest">Latest</h1>
-
-    <!-- Clips List -->
-    <div class="grid grid-cols-1 lg:grid-cols-3 gap-5">
-      <ng-template ngFor let-item [ngForOf]="clips" let-i="index">
-        <app-clip
-          [clipHeading]="clips[i].clipHeading"
-          [clipName]="clips[i].clipName"
-          [clipImage]="clips[i].clipImage"
-          [clipDate]="clips[i].clipDate"
-          class="flex items-center justify-center"></app-clip>
-      </ng-template>
-    </div>
-  </section>
-
+  <!-- Clips Grid -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    <ng-container *ngFor="let clip of clips; let i = index">
+      <app-clip [clipHeading]="clip.clipHeading" [clipName]="clip.clipName" [clipImage]="clip.clipImage"
+        [clipDate]="clip.clipDate">
+      </app-clip>
+    </ng-container>
+  </div>
+</section>

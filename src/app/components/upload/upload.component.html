@@ -1,35 +1,107 @@
-
 <div class="pt-20">
-    <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center w-full pt-10">
+  <!-- <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="flex flex-col items-center w-full pt-10">
 
-      <div class="mb-6 lg:w-1/3 md:w2/3 w-5/6">
-        <div appDnd *ngIf="!files.length" (files)="filesDropped($event)" class="dropzone bg-primary border border-dashed border-gray-300 rounded-lg p-6 text-gray-200 text-sm cursor-pointer hover:bg-secondary-light">
-          <input type="file" id="file" formControlName="file" multiple (change)="filesBrowsed($event)" class="dropzone-input">
-          <p class="p-5">Drag and Drop Video</p>
-          <h6>or</h6>
-          <p class="p-5">Click to Browse</p>
+    <div class="mb-6 lg:w-1/3 md:w2/3 w-5/6">
+      <div appDnd *ngIf="!files.length" (files)="filesDropped($event)"
+        class="dropzone bg-primary border border-dashed border-gray-300 rounded-lg p-6 text-gray-200 text-sm cursor-pointer hover:bg-secondary-light">
+        <input type="file" id="file" formControlName="file" multiple (change)="filesBrowsed($event)"
+          class="dropzone-input">
+        <p class="p-5">Drag and Drop Video</p>
+        <h6>or</h6>
+        <p class="p-5">Click to Browse</p>
+      </div>
+    </div>
+    <div class="mb-6 lg:w-1/3 md:w2/3 w-5/6">
+      <label for="title" class="block mb-2 text-sm font-medium text-gray-200  w-full">Title</label>
+      <input type="text" id="title" formControlName="title"
+        [ngClass]="{ 'error': isFormSubmitted && uploadForm.controls['title'].hasError('required')}"
+        class="bg-primary block w-full p-2 text-gray-200 border border-gray-300 rounded-lg sm:text-md focus:ring-secondary focus:border-secondary">
+      <p *ngIf="isFormSubmitted && uploadForm.controls['title'].hasError('required')" class="text-red-400">
+        Field is required
+      </p>
+    </div>
+    <div class="mb-6 lg:w-1/3 md:w2/3 w-5/6">
+      <label for="description" class="block mb-2 text-sm font-medium text-gray-200 dark:text-white">Description</label>
+      <input type="text" id="description" formControlName="description"
+        [ngClass]="{ 'error': isFormSubmitted && uploadForm.controls['description'].hasError('required')}"
+        class="bg-primary block w-full p-8 text-gray-200 border border-gray-300 rounded-lg sm:text-md focus:ring-secondary focus:border-secondary">
+      <p *ngIf="isFormSubmitted
+                  && uploadForm.controls['description'].hasError('required')" class="text-red-400">
+        Field is required
+      </p>
+    </div>
+
+
+    <button class="lg:w-1/3 md:w2/3 w-5/6 bg-secondary p-3 rounded hover" type="submit">Submit</button>
+  </form>
+  <p>{{this.uploadForm.valid}}</p> -->
+
+
+
+  <div class="min-h-screen bg-primary p-8">
+    <div class="max-w-2xl mx-auto bg-primary rounded-lg shadow-sm p-6 border border-gray-300">
+      <form [formGroup]="uploadForm" (ngSubmit)="onSubmit()" class="space-y-6">
+        <div appDnd (files)="filesDropped($event)" [class.border-secondary]="files.length"
+          [class.bg-secondary-light]="files.length"
+          class="dropzone border-2 border-dashed rounded-lg p-8 text-center cursor-pointer transition-colors hover:border-secondary border-gray-300">
+
+          <input type="file" id="file" #fileInput multiple (change)="filesBrowsed($event)" class="dropzone-input"
+            formControlName="file">
+
+          <svg *ngIf="!files.length" xmlns="http://www.w3.org/2000/svg" class="mx-auto h-12 w-12 text-gray-200"
+            fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12" />
+          </svg>
+
+          <div class="mt-4 flex flex-col items-center text-gray-200">
+            <ng-container *ngIf="files.length; else uploadPrompt">
+              <span class="text-sm">
+                {{ files.length }} file(s) selected
+              </span>
+            </ng-container>
+            <ng-template #uploadPrompt>
+              <p class="p-5">Drag and Drop Video</p>
+              <h6>or</h6>
+              <p class="p-5">Click to Browse</p>
+            </ng-template>
+          </div>
         </div>
-      </div>
-      <div class="mb-6 lg:w-1/3 md:w2/3 w-5/6">
-        <label for="title" class="block mb-2 text-sm font-medium text-gray-200  w-full">Title</label>
-        <input type="text" id="title" formControlName="title" [ngClass]="{ 'error': isFormSubmitted && uploadForm.controls['title'].hasError('required')}" class="bg-primary block w-full p-2 text-gray-200 border border-gray-300 rounded-lg sm:text-md focus:ring-secondary focus:border-secondary">
-        <p *ngIf="isFormSubmitted && uploadForm.controls['title'].hasError('required')"
-                  class="text-red-400">
-          Field is required
-        </p>
-      </div>
-      <div class="mb-6 lg:w-1/3 md:w2/3 w-5/6">
-        <label for="description" class="block mb-2 text-sm font-medium text-gray-200 dark:text-white">Description</label>
-        <input type="text" id="description" formControlName="description" [ngClass]="{ 'error': isFormSubmitted && uploadForm.controls['description'].hasError('required')}" class="bg-primary block w-full p-8 text-gray-200 border border-gray-300 rounded-lg sm:text-md focus:ring-secondary focus:border-secondary">
-        <p *ngIf="isFormSubmitted
-                  && uploadForm.controls['description'].hasError('required')"
-                  class="text-red-400">
-          Field is required
-        </p>
-      </div>
 
+        <div class="space-y-2">
+          <label for="title" class="block text-sm font-medium text-gray-200">
+            Title
+          </label>
+          <input type="text" id="title" formControlName="title"
+            [ngClass]="{'border-red-500': isFormSubmitted && uploadForm.get('title')?.errors?.['required']}"
+            class="bg-primary block w-full p-2 text-gray-200 border border-gray-300 rounded-lg sm:text-md focus:ring-secondary focus:border-secondary">
 
-      <button class="lg:w-1/3 md:w2/3 w-5/6 bg-secondary p-3 rounded hover" type="submit">Submit</button>
-    </form>
-    <p>{{this.uploadForm.valid}}</p>
+          <p *ngIf="isFormSubmitted && uploadForm.get('title')?.errors?.['required']" class="text-sm text-red-400">
+            Field is required
+          </p>
+        </div>
+
+        <div class="space-y-2">
+          <label for="description" class="block text-sm font-medium text-gray-200">
+            Description
+          </label>
+          <textarea id="description" formControlName="description"
+            [ngClass]="{'border-red-500': isFormSubmitted && uploadForm.get('description')?.errors?.['required']}"
+            class="bg-primary block w-full p-8 text-gray-200 border border-gray-300 rounded-lg sm:text-md focus:ring-secondary focus:border-secondary">
+          </textarea>
+
+          <p *ngIf="isFormSubmitted && uploadForm.get('description')?.errors?.['required']"
+            class="text-sm text-red-400">
+            Field is required
+          </p>
+        </div>
+
+        <button type="submit"
+          class="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-gray-200 bg-secondary hover:bg-opacity-90 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-secondary">
+          Submit
+        </button>
+      </form>
+      <p>{{this.uploadForm.valid}}</p>
+    </div>
+  </div>
 </div>

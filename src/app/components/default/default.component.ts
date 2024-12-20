@@ -1,6 +1,8 @@
+// biome-ignore lint/style/useImportType: <explanation>
 import { Component, OnInit } from '@angular/core';
 import { map } from 'rxjs';
-import IVideo from 'src/app/interfaces/video';
+import type IVideo from 'src/app/interfaces/video';
+// biome-ignore lint/style/useImportType: <explanation>
 import { VideoServiceService } from 'src/app/services/video-service.service';
 
 interface clipInfo {
@@ -21,7 +23,7 @@ export class DefaultComponent implements OnInit {
   offset = 0;
   clips: clipInfo[] = []
 
-  constructor(private _videoService: VideoServiceService) {}
+  constructor(private _videoService: VideoServiceService) { }
 
   ngOnInit() {
     this._videoService.getVideoList(this.limit, this.offset)
@@ -29,17 +31,15 @@ export class DefaultComponent implements OnInit {
         map((videos: IVideo[]) => videos.map(video => this.mapToClipInfo(video)))
       )
       .subscribe((videos) => {
-        console.log(videos);
         this.clips.push(...videos);
-    })
+      })
   }
-
 
   private mapToClipInfo(video: IVideo): clipInfo {
     return {
       clipImage: video.thumbnail_url,
       clipHeading: video.title,
-      clipName: video.user_id,
+      clipName: video.description,
       clipDate: video.created_at
     };
   }
